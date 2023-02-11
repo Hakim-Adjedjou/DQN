@@ -73,7 +73,7 @@ class ShowerEnv(Env):
         # Calculate reward
         if self.weights[0]<1 and self.weights[0]>0 and self.weights[1]<1 and self.weights[1]>0 and self.weights[2]<1 and self.weights[2]>0 :
             if fisher_information(self.points, self.state) < tmp:
-                if fisher_information(self.points, self.state) < fisher_information(self.points, self.state):
+                if fisher_information(self.points, self.state) < fisher_information(self.points, self.final_state):
                     reward=10
                     self.final_state=self.state
                     self.final_weights=self.weights

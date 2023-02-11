@@ -35,7 +35,7 @@ df_results=pd.DataFrame()
 df_weights=pd.DataFrame()
 
 ########trainning###################################
-
+""""
 env=ShowerEnv()
 env.update(main_df.iloc[10])
 env.state_update()
@@ -46,29 +46,30 @@ model = PPO("MlpPolicy", env, verbose=1)
 model.learn(total_timesteps=500000)
 model.save(model_path)
 env.close()
+"""
 
 
 ##########exploitation###############################
 
 model_path=os.path.join('Training','Saved Models','PPO_model')
-#for i in range(100) :
-env_1=ShowerEnv()
-env_1.update(main_df.iloc[99])
-env_1.state_update()
-env_1.final_state_update()
-model=PPO.load(model_path,env_1)
-evaluate_policy(model, env_1, n_eval_episodes=10, render=True)
-print(env_1.final_state)
-print(env_1.final_weights)
+for i in range(10) :
+ env_1=ShowerEnv()
+ env_1.update(main_df.iloc[99])
+ env_1.state_update()
+ env_1.final_state_update()
+ model=PPO.load(model_path,env_1)
+ evaluate_policy(model, env_1, n_eval_episodes=100, render=True)
+ print(env_1.final_state)
+ print(env_1.final_weights)
 #new_row = pd.DataFrame(env_1.final_state, columns=['X','Y'])
 #df_results = pd.concat([df_results, new_row], ignore_index=True)
-env_1.close()
+ env_1.close()
 
 
 
 ####################### results########################
 
-#df_results.to_csv("RL_results_noise_0.5_3tech_fusion.csv")
+df_results.to_csv("X_RL_results_noise_0.5_ep_evaluation_10.csv")
 
 """
 
